@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>日常查询 · 对照 · 延伸 — 友博体育</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f7fafc;
+            color: #1f2937;
+            line-height: 1.65;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-wrap {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 网格背景 + 卡片视觉 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0 2.5rem;
+        }
+
+        @media (min-width: 580px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .card-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 60, 50, 0.05);
+            border-left: 4px solid #2eccb0;
+            transition: transform 0.15s ease, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 90, 80, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #0e3b3a;
+            letter-spacing: -0.01em;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #374151;
+            margin-bottom: 0.4rem;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #e2f3f0;
+            color: #0b5f56;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            margin-top: 0.6rem;
+        }
+
+        /* 故事区：开场、承接、结尾 */
+        .story-block {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2.2rem 2rem;
+            margin: 1.2rem 0 1.8rem;
+            box-shadow: 0 6px 14px rgba(44, 130, 120, 0.04);
+        }
+
+        .story-block .opening {
+            font-size: 1.35rem;
+            font-weight: 430;
+            color: #0d3d39;
+            line-height: 1.6;
+            border-left: 5px solid #2eccb0;
+            padding-left: 1.3rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .story-block p {
+            margin-bottom: 1.2rem;
+            color: #2d3f3e;
+            font-size: 1rem;
+        }
+
+        .story-block .closing {
+            margin-top: 1.8rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #d0e4e0;
+            font-style: normal;
+            color: #39635d;
+            font-size: 0.98rem;
+        }
+
+        .highlight-link {
+            color: #0b7a6b;
+            font-weight: 520;
+            text-decoration: none;
+            border-bottom: 1px solid #87ccc0;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .highlight-link:hover {
+            color: #064a41;
+            border-bottom-color: #064a41;
+        }
+
+        .hero-mini {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0.5rem 0 0.2rem;
+        }
+
+        .hero-mini h1 {
+            font-size: 2rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            color: #0a3e39;
+            line-height: 1.2;
+            margin-bottom: 0.3rem;
+        }
+
+        .hero-mini .sub {
+            font-size: 1rem;
+            color: #4b6b66;
+            background: #e3f2ef;
+            padding: 0.3rem 1.1rem;
+            border-radius: 40px;
+        }
+
+        .faq-mini {
+            background: #f0f8f6;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .faq-mini h4 {
+            font-size: 1.2rem;
+            font-weight: 550;
+            color: #0d4a42;
+            margin-bottom: 1rem;
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.7rem;
+            border-bottom: 1px dashed #b6d6cf;
+            padding-bottom: 0.5rem;
+        }
+
+        .faq-mini summary {
+            font-weight: 480;
+            cursor: pointer;
+            color: #144b44;
+            padding: 0.4rem 0;
+            font-size: 0.98rem;
+        }
+
+        .faq-mini details p {
+            padding: 0.4rem 0 0.2rem 0.6rem;
+            color: #2e5b54;
+            font-size: 0.92rem;
+        }
+
+        .note-box {
+            background: #dff0ec;
+            border-radius: 40px;
+            padding: 0.6rem 1.4rem;
+            display: inline-block;
+            font-size: 0.9rem;
+            color: #0b5047;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #c9dbd5;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #52756d;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .story-block {
+                padding: 1.6rem 1.2rem;
+            }
+            .hero-mini h1 {
+                font-size: 1.7rem;
+            }
+            .card {
+                padding: 1.4rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+
+    <div class="hero-mini">
+        <h1>日常查询 · 对照 · 延伸</h1>
+        <span class="sub">从一条笔记开始，慢慢展开</span>
+    </div>
+
+    <!-- 故事叙述区：开场短句 + 承接段落 + 特点列表 (网格卡片) + 温和结尾 -->
+    <div class="story-block">
+        <div class="opening">
+            随手搜一个关键词，页面跳出来，信息铺开——但哪一条更接近你想要的？
+        </div>
+
+        <p>
+            几个月前因为想对比几家体育资讯平台的内容结构，我把自己常查的几个站点列了个表。其中一个名字反复出现：<a href="https://official-youbosport.com" class="highlight-link">友博体育</a>。起初只是把它当作一个普通的对照项，但来回翻看几次之后，发现它的分类逻辑和赛事覆盖角度有些不一样——不是那种大而全的堆砌，而是更像有人按日常查询的习惯整理过。
+        </p>
+
+        <p>
+            后来我养成了一个习惯：每次需要快速查某个联赛的近期动态，或者想横向对比几支队伍的数据时，都会顺手把它放到标签页里。不是因为它有什么独家数据，而是它那种平实的陈列方式，让对照本身变得更干净。有时候你只是想知道某个时间段的赛况脉络，而不是被弹窗或推荐流干扰。
+        </p>
+
+        <!-- 特点直接以网格卡片呈现（作为“特点列表”的变体） -->
+        <div class="card-grid">
+            <div class="card">
+                <h3>按赛事归类</h3>
+                <p>不是按热度或流量排序，而是按洲际、联赛、杯赛做清晰的层级。适合需要快速定位某一类别的人。</p>
+                <span class="tag">常用索引</span>
+            </div>
+            <div class="card">
+                <h3>时间轴对照</h3>
+                <p>每条动态附带时间节点，方便把不同来源的信息拼在一起，减少来回切换页面的次数。</p>
+                <span class="tag">延伸阅读</span>
+            </div>
+            <div class="card">
+                <h3>界面干扰少</h3>
+                <p>没有自动播放的视频区块，也没有侧边栏闪烁横幅。正文区域占比高，适合专注阅读。</p>
+                <span class="tag">视觉安静</span>
+            </div>
+            <div class="card">
+                <h3>更新节奏稳定</h3>
+                <p>内容覆盖日常赛程、短期回顾和部分专题整理。不会突然断更，也不会过度推送。</p>
+                <span class="tag">可预期</span>
+            </div>
+            <div class="card">
+                <h3>链接结构简单</h3>
+                <p>URL 路径有一定逻辑，便于自己收藏或做对照笔记。对于需要反复查同一赛事的人来说，省去不少时间。</p>
+                <span class="tag">低摩擦</span>
+            </div>
+            <div class="card">
+                <h3>无夸张标题</h3>
+                <p>几乎看不到“震惊”“必看”这类措辞。标题和摘要都接近事实描述，有助于保持客观判断。</p>
+                <span class="tag">平实语调</span>
+            </div>
+        </div>
+
+        <p>
+            当然，每个平台都有它的侧重。如果你习惯的界面是另一种风格，或者需要更社交化的互动，<a href="https://official-youbosport.com" class="highlight-link">友博体育</a> 可能不是最热闹的那个。但如果你像我一样，偶尔只想安安静静地查一条信息、做一组对照，或者延伸了解某个赛事的前后脉络，它反而会变成一个顺手的起点。
+        </p>
+
+        <div class="closing">
+            <span class="note-box">📌 一条私人备忘：把它放在书签栏的第二个文件夹里，和另外三个站点并列——查、比、关掉，整个过程不需要登录或刷屏。</span>
+        </div>
+    </div>
+
+    <!-- FAQ 摘要（内容摘要式，非完整问答） -->
+    <div class="faq-mini">
+        <h4>❔ 常见疑问 · 简短说明</h4>
+        <details>
+            <summary>这个平台主要是关于什么的？</summary>
+            <p>提供赛事动态、赛程整理和部分延伸信息，整体偏向信息陈列，不侧重社区或社交功能。</p>
+        </details>
+        <details>
+            <summary>内容更新频率如何？</summary>
+            <p>保持日常更新，覆盖主要联赛和杯赛，但不会每小时刷屏。适合每天固定查看一两次。</p>
+        </details>
+        <details>
+            <summary>是否需要注册账户才能浏览？</summary>
+            <p>大部分内容可以直接查看，没有强制注册或付费墙。部分历史归档可能需要简单浏览权限。</p>
+        </details>
+        <details>
+            <summary>移动设备上体验怎么样？</summary>
+            <p>适配了手机竖屏和横屏，文字可读性不错，卡片布局在窄屏上会自动堆叠，不会有元素重叠的问题。</p>
+        </details>
+        <details>
+            <summary>与其他同类站点主要区别？</summary>
+            <p>界面更克制，没有弹窗和自动播放视频；分类逻辑偏实用，适合做信息对照而不是漫无目的地刷。</p>
+        </details>
+    </div>
+
+    <!-- 一个额外的自然句子嵌入链接（第二个链接，确保可见文本严格等于友博体育） -->
+    <p style="margin: 1.8rem 0 0.5rem; background: #ecf6f3; padding: 1rem 1.5rem; border-radius: 40px; font-size: 0.95rem; color: #1f4f47;">
+        📋 如果你也在整理自己的体育信息源对照表，可以把 <a href="https://official-youbosport.com" class="highlight-link">友博体育</a> 作为一个稳定的参照项放进去。
+    </p>
+
+    <footer>
+        一份日常整理 · 基于个人查询习惯 · 内容仅供参考
+    </footer>
+</div>
+</body>
+</html>
